@@ -60,3 +60,21 @@ def userprofile(request):
 def logoutuser(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def delete_data(request,id):
+    if request.method == "POST":
+        row = UserProfileTable.objects.get(pk=id)
+        row.delete()
+        return HttpResponseRedirect('/')
+
+def update_data(request,id):
+    if request.method == 'POST':
+        data = UserProfileTable.objects.get(pk=id)
+        form = UserProfileForm(request.POST, instance=data)
+        form.save()
+        messages.info(request,'Updated Successfully')
+        return HttpResponseRedirect('/')
+    else:
+        data = UserProfileTable.objects.get(pk=id)
+        form = UserProfileForm(instance=data)
+        return render(request,'update.html',{'form':form})

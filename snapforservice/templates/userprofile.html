@@ -39,6 +39,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Service</th>
+                  <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -48,6 +49,14 @@
                 <td>{{obj.name}}</td>
                 <td>{{obj.email}}</td>
                 <td>{{obj.service}}</td>
+                   <td>
+          <a class="btn btn-warning " href="{% url 'update' d.id %}" role="button">Edit</a>
+          <form action="{% url 'delete' d.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="Delete" class="btn btn-danger ">
+          </form>
+
+          </td>
               </tr>
             {% endfor %}
             </tbody>
